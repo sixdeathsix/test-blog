@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use Smarty\Smarty;
+use App\Support\Text;
 
 final class View
 {
@@ -15,6 +16,7 @@ final class View
         $this->smarty->setCompileDir($varDir . '/compile');
         $this->smarty->setCacheDir($varDir . '/cache');
         $this->smarty->setEscapeHtml(true);
+        $this->smarty->registerPlugin(Smarty::PLUGIN_MODIFIER, 'paragraphs', [Text::class, 'paragraphs']);
     }
 
     public function render(string $template, array $data = [])

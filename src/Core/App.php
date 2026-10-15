@@ -2,7 +2,14 @@
 
 namespace App\Core;
 
+use App\Controller\ArticleController;
+use App\Controller\CategoryController;
 use App\Controller\HomeController;
+use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
+use App\Service\ArticleService;
+use App\Service\CategoryService;
+use App\Support\Sorting;
 use App\Exception\HttpException;
 use Throwable;
 
@@ -10,12 +17,16 @@ final class App
 {    
     private readonly string $templatesDir;
     private readonly string $varDir;
-    private readonly string $routesFile;
+    private readonly array $routes;
+    private readonly array $blog;
+    private readonly array $config;
 
     public function __construct(string $rootDir) {
         $this->templatesDir = $rootDir . '/templates';
         $this->varDir = $rootDir . '/var/smarty';
-        $this->routesFile = $rootDir . '/config/routes.php';
+        $this->routes = require $rootDir . '/config/routes.php';
+        $this->blog = require $rootDir . '/config/blog.php';
+        $this->config = require $rootDir . '/config/app.php';
     }
 
     public function run()
@@ -29,7 +40,8 @@ final class App
         } catch (HttpException $e) {
             $response = $this->errorResponse($view, $e->getCode(), $e->getMessage(), $e->headers);
         } catch (Throwable $e) {
-            $response = $this->errorResponse($view, 500, 'Внутренняя ошибка сервера', []);
+            die((string) $e);
+            $response = $this->errorResponse($view, 500, 'Ошибка сервера', []);
         }
 
         $response->send($request->method !== 'HEAD');
@@ -37,14 +49,30 @@ final class App
 
     private function dispatch(Request $request, View $view)
     {
-        $controllers = [
-            HomeController::class => new HomeController($view),
-        ];
-
-        $routes = require $this->routesFile;
-        $router = new Router($routes);
-        
+        $router = new Router($this->routes);
         [[$class, $action], $params] = $router->match($request);
+
+        $blog = $this->blog;
+        $pdo = Database::connect(...$this->config['db']);
+
+        $categoryRepository = new CategoryRepository($pdo);
+        $articleRepository = new ArticleRepository($pdo);
+
+        $categoryService = new CategoryService(
+            categories: $categoryRepository,
+            articles: $articleRepository,
+            sortings: Sorting::fromConfig($blog['sorting']['options']),
+            defaultSort: $blog['sorting']['default'],
+            perPage: $blog['per_page'],
+            homeArticlesLimit: $blog['home_posts_per_category'],
+        );
+        $articleService = new ArticleService($articleRepository, $categoryRepository, $blog['similar_articles_limit']);
+
+        $controllers = [
+            HomeController::class     => new HomeController($view, $categoryService),
+            CategoryController::class => new CategoryController($view, $categoryService),
+            ArticleController::class  => new ArticleController($view, $articleService),
+        ];
 
         return $controllers[$class]->$action($request, ...$params);
     }

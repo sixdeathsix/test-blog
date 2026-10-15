@@ -35,6 +35,15 @@ services:
       timeout: 3s
       retries: 20
 
+  sass:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    entrypoint: ["npx", "--yes", "sass@1", "--no-source-map"]
+    command: ["resources/scss/main.scss", "public/assets/css/main.css"]
+    profiles: ["tools"]
+
 volumes:
   db_data:
   

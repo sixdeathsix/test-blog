@@ -1,0 +1,55 @@
+@use 'variables' as *;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: $font-base;
+    font-size: 16px;
+    line-height: 1.6;
+    color: $color-text;
+    background: $color-bg;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0 0 0.5em;
+    line-height: 1.25;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.125rem; }
+
+p {
+    margin: 0 0 1em;
+}
+
+a {
+    color: $color-accent;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-accent-hover;
+        text-decoration: underline;
+    }
+}
+
+img {
+    max-width: 100%;
+}
+
+pre {
+    overflow-x: auto;
+    padding: 16px;
+    font-family: $font-mono;
+    font-size: 0.875rem;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius;
+}

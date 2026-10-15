@@ -1,7 +1,8 @@
 /vendor/
 /var/
 .env
-.env.example
 .idea/
 .vscode/
-composer.lock
+.cursor/
+.DS_Store
+Thumbs.db

@@ -23,4 +23,4 @@ $categoryIds = (new CategorySeeder($pdo))->run();
 
 $pdo->commit();
 
-echo 'Записи добавлены';
+echo 'Записи добавлены.';

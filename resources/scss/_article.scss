@@ -1,0 +1,23 @@
+@use 'variables' as *;
+
+.article {
+    max-width: 760px;
+    margin: 0 auto 48px;
+
+    &__meta {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+        font-size: 0.875rem;
+        color: $color-muted;
+    }
+
+    &__media {
+        margin-bottom: $gap;
+        border-radius: $radius;
+    }
+
+    &__content {
+        font-size: 1.0625rem;
+    }
+}

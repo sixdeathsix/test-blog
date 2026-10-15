@@ -6,18 +6,16 @@ use InvalidArgumentException;
 
 final class Sorting
 {
+    private const DIRECTIONS = ['asc', 'desc'];
+
     public function __construct(
         public readonly string $key,
         public readonly string $label,
         public readonly string $column,
         public readonly string $direction,
     ) {
-        if (preg_match('/^[a-z_]+$/D', $column) !== 1) {
-            throw new InvalidArgumentException("Ошибка сортировки \"{$key}\"");
-        }
-
-        if (!in_array($direction, ['ASC', 'DESC'], true)) {
-            throw new InvalidArgumentException("Ошибка типа сортировки \"{$key}\"");
+        if (preg_match('/^[a-z_]+$/', $column) !== 1 || !in_array($direction, self::DIRECTIONS, true)) {
+            throw new InvalidArgumentException("Неизвестный способ сортировки \"{$key}\"");
         }
     }
 
@@ -26,9 +24,25 @@ final class Sorting
         $result = [];
 
         foreach ($options as $key => $option) {
-            $result[$key] = new self($key, $option['label'], $option['column'], $option['direction']);
+            $result[$key] = new self($key, ...$option);
         }
 
         return $result;
+    }
+
+    public function withDirection(?string $direction)
+    {
+        $direction = strtolower((string) $direction);
+
+        if (!in_array($direction, self::DIRECTIONS, true)) {
+            return $this;
+        }
+
+        return new self($this->key, $this->label, $this->column, $direction);
+    }
+
+    public function oppositeDirection(): string
+    {
+        return $this->direction === 'asc' ? 'desc' : 'asc';
     }
 }

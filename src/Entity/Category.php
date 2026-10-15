@@ -9,6 +9,5 @@ final class Category
         public readonly string $slug,
         public readonly string $name,
         public readonly string $description,
-    ) {
-    }
+    ) {}
 }

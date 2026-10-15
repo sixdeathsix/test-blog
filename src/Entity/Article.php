@@ -15,6 +15,5 @@ final class Article
         public readonly string $image,
         public readonly int $views,
         public readonly DateTimeImmutable $publishedAt,
-    ) {
-    }
+    ) {}
 }

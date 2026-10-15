@@ -4,7 +4,7 @@ namespace App\Support;
 
 final class Text
 {
-    public static function paragraphs(string $text): string
+    public static function paragraphs(string $text)
     {
         $blocks = preg_split('/\R\s*\R/', trim($text)) ?: [];
         $html = '';

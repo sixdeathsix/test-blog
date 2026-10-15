@@ -12,5 +12,5 @@ $files = glob(__DIR__ . '/../database/migrations/*.sql');
 foreach ($files as $file) {
     $pdo->exec(file_get_contents($file));
 
-    echo 'Готово: ' . basename($file);
+    echo 'Миграция завершена: ' . basename($file);
 }

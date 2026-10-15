@@ -7,8 +7,8 @@ return [
     'sorting' => [
         'default' => 'date',
         'options' => [
-            'date' => ['label' => 'По дате', 'column' => 'published_at', 'direction' => 'DESC'],
-            'views' => ['label' => 'По просмотрам', 'column' => 'views', 'direction' => 'DESC'],
+            'date' => ['label' => 'По дате', 'column' => 'published_at', 'direction' => 'desc'],
+            'views' => ['label' => 'По просмотрам', 'column' => 'views', 'direction' => 'desc'],
         ],
     ],
 ];
