@@ -276,3 +276,110 @@ main {
 .article__content {
   font-size: 1.0625rem;
 }
+
+.error-page {
+  display: grid;
+  align-items: center;
+  min-height: calc(100vh - 220px);
+  padding: 32px 0 48px;
+}
+.error-page__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 48px;
+  align-items: center;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+.error-page__visual {
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+  padding: 24px;
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.06);
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  border-radius: 8px;
+}
+.error-page__code {
+  font-size: clamp(6rem, 14vw, 10rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.error-page__content {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.error-page__eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+.error-page__title {
+  margin: 0 0 16px;
+  font-size: clamp(1.75rem, 3vw, 2rem);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.error-page__description {
+  max-width: 40ch;
+  margin: 0 0 24px;
+  color: #6b7280;
+}
+.error-page__home {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.error-page__home svg {
+  flex: 0 0 auto;
+}
+.error-page__home:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 4px;
+}
+
+@media (max-width: 760px) {
+  .error-page {
+    padding: 16px 0 32px;
+  }
+  .error-page__panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    max-width: 560px;
+    padding: 24px;
+  }
+  .error-page__visual {
+    min-height: 168px;
+    padding: 16px;
+  }
+  .error-page__code {
+    font-size: clamp(6rem, 32vw, 9rem);
+  }
+  .error-page__content {
+    text-align: center;
+  }
+  .error-page__description {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+@media (max-width: 480px) {
+  .error-page__home {
+    width: 100%;
+  }
+}

@@ -20,8 +20,13 @@ final class Router
                 continue;
             }
 
-            if ($method !== $request->method) {
+            if ($method !== $requestMethod) {
                 $allowedMethods[] = $method;
+
+                if ($method === 'GET') {
+                    $allowedMethods[] = 'HEAD';
+                }
+                
                 continue;
             }
 

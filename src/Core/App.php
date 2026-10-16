@@ -40,7 +40,6 @@ final class App
         } catch (HttpException $e) {
             $response = $this->errorResponse($view, $e->getCode(), $e->getMessage(), $e->headers);
         } catch (Throwable $e) {
-            die((string) $e);
             $response = $this->errorResponse($view, 500, 'Ошибка сервера', []);
         }
 

@@ -14,9 +14,9 @@ final class ArticleService
         private readonly int $similarLimit,
     ) {}
 
-    public function getForView(string $slug)
+    public function getForView(string $slug, bool $countView = true)
     {
-        if (!$this->articles->incrementViews($slug)) {
+        if ($countView && !$this->articles->incrementViews($slug)) {
             return null;
         }
 

@@ -2,6 +2,8 @@
 
 namespace App\Support;
 
+use InvalidArgumentException;
+
 final class Paginator
 {
     public readonly int $totalPages;

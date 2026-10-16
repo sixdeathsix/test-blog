@@ -1,0 +1,124 @@
+@use 'variables' as *;
+
+.error-page {
+    display: grid;
+    align-items: center;
+    min-height: calc(100vh - 220px);
+    padding: 32px 0 48px;
+
+    &__panel {
+        display: grid;
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+        gap: 48px;
+        align-items: center;
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 48px;
+        background: $color-surface;
+        border: 1px solid $color-border;
+        border-radius: $radius + 4px;
+    }
+
+    &__visual {
+        display: grid;
+        place-items: center;
+        min-height: 280px;
+        padding: 24px;
+        color: $color-accent;
+        background: rgba($color-accent, 0.06);
+        border: 1px solid rgba($color-accent, 0.12);
+        border-radius: $radius;
+    }
+
+    &__code {
+        font-size: clamp(6rem, 14vw, 10rem);
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.02em;
+        line-height: 1;
+    }
+
+    &__content {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    &__eyebrow {
+        margin: 0 0 12px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: $color-accent;
+    }
+
+    &__title {
+        margin: 0 0 16px;
+        font-size: clamp(1.75rem, 3vw, 2rem);
+        line-height: 1.2;
+        text-wrap: balance;
+    }
+
+    &__description {
+        max-width: 40ch;
+        margin: 0 0 24px;
+        color: $color-muted;
+    }
+
+    &__home {
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 12px 20px;
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.5;
+
+        svg {
+            flex: 0 0 auto;
+        }
+
+        &:focus-visible {
+            outline: 3px solid $color-accent;
+            outline-offset: 4px;
+        }
+    }
+}
+
+@media (max-width: 760px) {
+    .error-page {
+        padding: 16px 0 32px;
+
+        &__panel {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 24px;
+            max-width: 560px;
+            padding: 24px;
+        }
+
+        &__visual {
+            min-height: 168px;
+            padding: 16px;
+        }
+
+        &__code {
+            font-size: clamp(6rem, 32vw, 9rem);
+        }
+
+        &__content {
+            text-align: center;
+        }
+
+        &__description {
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .error-page__home {
+        width: 100%;
+    }
+}
